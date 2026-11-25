@@ -1,39 +1,55 @@
 package co.za.portfolio.domain;
 
-@Getter
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 @Builder
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID userID;
 
-    @Setter
     private String firstName;
-
-    @Setter
     private String lastName;
-
-    @Setter
     private String email;
-
-    @Setter
     private String phoneNumber;
-
-    @Setter
     private String password;
+    private UsersRoles userRoles;
 
-    @setter
-    private UsersRoles userRole;
-
-    public Users(String firstName, String lastName, String email, String phoneNumber, String password) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-
+    public void setUserRoles(UsersRoles userRoles) {
+        this.userRoles = userRoles;
+    }
 }

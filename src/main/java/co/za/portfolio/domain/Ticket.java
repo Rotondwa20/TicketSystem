@@ -1,10 +1,23 @@
 package co.za.portfolio.domain;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Builder
-@Getter
+@NoArgsConstructor
 @Entity
+@Getter
+@AllArgsConstructor
 public class Ticket {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID ticketID;
 
     private String ticketTitle;
@@ -15,21 +28,16 @@ public class Ticket {
 
     private TicketStatus ticketStatus;
     private Priority ticketPriority;
-    private Category ticketCategory;
-    private Team team;
-    private Users user;
 
-    public Ticket(String ticketTitle, String ticketDescription, LocalDateTime ticketCreatedDate, LocalDateTime ticketUpdatedDate, TicketStatus ticketStatus, Priority ticketPriority, Category ticketCategory, Team team, Users user) {
-        this.ticketTitle = ticketTitle;
-        this.ticketDescription = ticketDescription;
-        this.ticketCreatedDate = ticketCreatedDate;
-        this.ticketUpdatedDate = ticketUpdatedDate;
-        this.ticketStatus = ticketStatus;
-        this.ticketPriority = ticketPriority;
-        this.ticketCategory = ticketCategory;
-        this.team = team;
-        this.user = user;
-    }
+    private Catergory ticketCategory;
+
+@ManyToOne
+@JoinColumn(name = "customer_id")
+    private Customer customer;
+
+@ManyToOne
+@JoinColumn(name = "user_id")
+    private Users user;
 
     public void setTicketTitle(String ticketTitle) {
         this.ticketTitle = ticketTitle;
@@ -53,14 +61,6 @@ public class Ticket {
 
     public void setTicketPriority(Priority ticketPriority) {
         this.ticketPriority = ticketPriority;
-    }
-
-    public void setTicketCategory(Category ticketCategory) {
-        this.ticketCategory = ticketCategory;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     public void setUser(Users user) {
